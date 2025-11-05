@@ -32,9 +32,30 @@ function show() {
         const value = localStorage.getItem(String(i));
         if (value !== null && value !== "") {
             list.push(value);
-            const li = document.createElement("li");
+            const div = document.createElement("div");
+            div.setAttribute("data-index-number");
+            div.dataset.index = i;
+            const li = document.createElement("li")
+            const deletebtn = document.createElement("button")
+            deletebtn.innerText = "Törlés"
+            
+            const checkBox = document.createElement('input')
+            checkBox.type = "checkbox"
+
+
             li.innerText = value;
-            ul.appendChild(li);
+            div.appendChild(checkBox)
+            div.appendChild(li);
+            div.appendChild(deletebtn)
+            
+            
+            ul.appendChild(div);
         }
+    }
+
+    deletebtn.addEventListener("click", deleteTask  )
+
+    function deleteTask(){
+            
     }
 }
