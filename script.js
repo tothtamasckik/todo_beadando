@@ -4,13 +4,13 @@ const textarea = document.querySelector("#area");
 const ul = document.querySelector("ul");
 
 button.addEventListener("click", add);
-window.addEventListener("load", show);
+// window.addEventListener("load", show);
 
 function add() {
     if (textarea.value === "") return;
 
     list.push(textarea.value)
-    // console.log(list);
+    console.log(list);
     for (let index = 0; index < list.length; index++) {
         localStorage.setItem(String(index), list[index])
         // console.log(localStorage.getItem(String(index), list[index]));
@@ -23,18 +23,19 @@ function add() {
     li.innerText = textarea.value;
     ul.appendChild(li);
     textarea.value = "";
+    show()
     
 }
 
+
 function show() {
+    ul.innerHTML = "";
     
     for (let i = 0; i < localStorage.length; i++) {
         const value = localStorage.getItem(String(i));
         if (value !== null && value !== "") {
             list.push(value);
             const div = document.createElement("div");
-            div.setAttribute("data-index-number");
-            div.dataset.index = i;
             const li = document.createElement("li")
             const deletebtn = document.createElement("button")
             deletebtn.innerText = "Törlés"
@@ -53,9 +54,5 @@ function show() {
         }
     }
 
-    deletebtn.addEventListener("click", deleteTask  )
-
-    function deleteTask(){
-            
-    }
+    
 }
