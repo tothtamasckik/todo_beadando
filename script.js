@@ -2,9 +2,10 @@ const list = [];
 const button = document.querySelector("#btn");
 const textarea = document.querySelector("#area");
 const ul = document.querySelector("ul");
+// let deletebtn = "";
 
 button.addEventListener("click", add);
-// window.addEventListener("load", show);
+window.addEventListener("load", show);
 
 function add() {
     if (textarea.value === "") return;
@@ -52,16 +53,26 @@ function show() {
             
             
             ul.appendChild(div);
+            deletebtn.addEventListener("click", deleteData);
         }
     }
 
     
 }
-deletebtn.addEventListener("click", deleteData);
 
 
 
-function deleteData(params) {
+function deleteData(event) {
+    
+    // localStorage.removeItem();
+    // ul.remove();
+    
+    // console.log(event.target.parentElement);
+    // localStorage.removeItem()
+    // delete(event.target.parentElement);
+    ul.removeChild(event.target.parentElement)
+    // document.removeChild();
+
     
 }
 
