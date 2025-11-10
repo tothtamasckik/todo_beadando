@@ -7,9 +7,17 @@ const ul = document.querySelector("ul");
 button.addEventListener("click", add);
 window.addEventListener("load", show);
 
+
+
 function add() {
     if (textarea.value === "") return;
-
+    // const data   = {
+    //     text,
+    //     checked
+    // };
+    
+    // data.text = textarea.value;
+    // data.checked = "false";
     list.push(textarea.value)
     console.log(list);
     for (let index = 0; index < list.length; index++) {
@@ -17,8 +25,6 @@ function add() {
         // console.log(localStorage.getItem(String(index), list[index]));
         
     }
-    
-    
     
     const li = document.createElement("li");
     li.innerText = textarea.value;
@@ -64,13 +70,16 @@ function show() {
 
 function deleteData(event) {
     
+    const i = event.target.parentElement.dataset.id;
+
     // localStorage.removeItem();
     // ul.remove();
     
-    // console.log(event.target.parentElement);
+    // console.log(event.target.parentElement.dataset.id);
     // localStorage.removeItem()
     // delete(event.target.parentElement);
     ul.removeChild(event.target.parentElement)
+    localStorage.removeItem(String(i));
     // document.removeChild();
 
     
