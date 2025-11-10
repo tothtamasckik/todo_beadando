@@ -23,7 +23,7 @@ function add() {
     li.innerText = textarea.value;
     ul.appendChild(li);
     textarea.value = "";
-    show()
+    // show()
     
 }
 
@@ -36,6 +36,7 @@ function show() {
         if (value !== null && value !== "") {
             list.push(value);
             const div = document.createElement("div");
+            div.dataset.id = String(i);
             const li = document.createElement("li")
             const deletebtn = document.createElement("button")
             deletebtn.innerText = "Törlés"
@@ -56,3 +57,12 @@ function show() {
 
     
 }
+deletebtn.addEventListener("click", deleteData);
+
+
+
+function deleteData(params) {
+    
+}
+
+
