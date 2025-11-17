@@ -21,8 +21,7 @@ function add() {
         checked: false
     };
     list.push(task)
-    localStorage.setItem("tasks", JSON.stringify(list));
-
+    
     
 
     // for (let index = 0; index < list.length; index++) {
@@ -36,8 +35,20 @@ function add() {
 }
 
 
+function save() {
+    localStorage.setItem("tasks", JSON.stringify(list));
+    
+    // console.log(localStorage);
+    
+}
+
 function show() {
     ul.innerHTML = "";
+    const dsjsdsd = localStorage.getItem("tasks")
+    console.log(dsjsdsd);
+    
+    console.log(JSON.parse(dsjsdsd));
+    
    
     for (let index = 0; index < list.length; index++) {
         const value = list[index].text;
@@ -66,24 +77,30 @@ function show() {
 }
 
 function check(event){
-    const i = event.target.dataset.id;
+    const i = parseInt(event.target.parentElement.dataset.id);
     const done = event.target;
-    console.log(done);
+    
     if (done.checked) {
         done.parentElement.style.backgroundColor = "green";
+        list[i].checked = true;
     }
     else {
         done.parentElement.style.backgroundColor = "bisque";
+        list[i].checked = false;
     }
+    console.log(list[i].checked);
+    
+    save();
+    // show();
 }
 
 function deleteData(event) {
     
-    // const i = parseInt(event.target.parentElement.dataset.id);
-    console.log(event.target.parentElement);
+    const div = event.target.parentElement;
+    console.log(div.parentElement);
     
-    ul.removeChild(event.target.parentElement);
-    console.log(event.target.parentElement);
+    ul.removeChild(div.parentElement);
+    // console.log(event.target.parentElement);
     show();
     // localStorage.removeItem(String(i));
     // list.remove(i);
