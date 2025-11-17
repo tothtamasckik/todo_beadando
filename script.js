@@ -11,18 +11,24 @@ window.addEventListener("load", show);
 
 function add() {
     if (textarea.value === "") return;
-    if (localStorage.length > 0) {
-        for (let index = 0; index < localStorage.length; index++) {
-            list[index] = localStorage.getItem(String(index))
-        }
-    }
-    list.push(textarea.value)
+    // if (localStorage.length > 0) {
+    //     for (let index = 0; index < localStorage.length; index++) {
+    //         list[index] = localStorage.getItem(String(index))
+    //     }
+    // }
+    const task = {
+        text: textarea.value,
+        checked: false
+    };
+    list.push(task)
+    localStorage.setItem("tasks", JSON.stringify(list));
 
+    
 
-    for (let index = 0; index < list.length; index++) {
-        localStorage.setItem(String(index), list[index])
-        console.log(localStorage.getItem(String(index), list[index]));
-    }
+    // for (let index = 0; index < list.length; index++) {
+    //     localStorage.setItem(String(index), list[index])
+    //     console.log(localStorage.getItem(String(index), list[index]));
+    // }
 
     textarea.value = "";
     show()
@@ -32,9 +38,9 @@ function add() {
 
 function show() {
     ul.innerHTML = "";
-    
-    for (let index = 0; index < localStorage.length; index++) {
-        const value = localStorage.getItem(String(index));
+   
+    for (let index = 0; index < list.length; index++) {
+        const value = list[index].text;
         if (value !== null && value !== "") {
             const div = document.createElement("div");
             div.dataset.id = String(index);
@@ -44,13 +50,14 @@ function show() {
             
             const checkBox = document.createElement('input')
             checkBox.type = "checkbox"
-
-
-            li.innerText = value;
+            const p = document.createElement("p")
+            p.innerText = value;
+          
             div.appendChild(checkBox)
-            div.appendChild(li);
+            div.appendChild(p);
             div.appendChild(deletebtn)
-            ul.appendChild(div);
+            li.appendChild(div);
+            ul.appendChild(li);
             
             deletebtn.addEventListener("click", deleteData);
             checkBox.addEventListener("click", check)
@@ -72,9 +79,13 @@ function check(event){
 
 function deleteData(event) {
     
-    const i = event.target.parentElement.dataset.id;
-    ul.removeChild(event.target.parentElement)
-    localStorage.removeItem(String(i));
+    // const i = parseInt(event.target.parentElement.dataset.id);
+    console.log(event.target.parentElement);
+    
+    ul.removeChild(event.target.parentElement);
+    console.log(event.target.parentElement);
+    show();
+    // localStorage.removeItem(String(i));
     // list.remove(i);
 }
 
