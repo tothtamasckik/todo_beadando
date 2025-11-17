@@ -5,7 +5,7 @@ const ul = document.querySelector("ul");
 // let deletebtn = "";
 
 button.addEventListener("click", add);
-window.addEventListener("load", show);
+window.addEventListener("load", save);
 
 
 
@@ -30,13 +30,14 @@ function add() {
     // }
 
     textarea.value = "";
-    show()
+    save();    
     
 }
 
 
 function save() {
     localStorage.setItem("tasks", JSON.stringify(list));
+    show()
     
     // console.log(localStorage);
     
@@ -44,14 +45,19 @@ function save() {
 
 function show() {
     ul.innerHTML = "";
-    const dsjsdsd = localStorage.getItem("tasks")
-    console.log(dsjsdsd);
+    const lcalstr = JSON.parse(localStorage.getItem("tasks"))
+    // console.log(dsjsdsd);
+    console.log(lcalstr);
     
-    console.log(JSON.parse(dsjsdsd));
     
+    // console.log(dsjsdsd);
+    
+    // console.log(JSON.parse(dsjsdsd));
    
-    for (let index = 0; index < list.length; index++) {
-        const value = list[index].text;
+    for (let index = 0; index < lcalstr.length; index++) {
+        const value = lcalstr[index].text;
+        console.log(lcalstr[index].text);
+        
         if (value !== null && value !== "") {
             const div = document.createElement("div");
             div.dataset.id = String(index);
@@ -88,10 +94,10 @@ function check(event){
         done.parentElement.style.backgroundColor = "bisque";
         list[i].checked = false;
     }
-    console.log(list[i].checked);
+    // console.log(list[i].checked);
     
     save();
-    // show();
+    show();
 }
 
 function deleteData(event) {
