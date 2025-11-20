@@ -37,7 +37,7 @@ function add() {
 
 function save() {
     localStorage.setItem("tasks", JSON.stringify(list));
-    show()
+    show();
     
     // console.log(localStorage);
     
@@ -47,7 +47,7 @@ function show() {
     ul.innerHTML = "";
     const lcalstr = JSON.parse(localStorage.getItem("tasks"))
     // console.log(dsjsdsd);
-    console.log(lcalstr);
+    // console.log(lcalstr);
     
     
     // console.log(dsjsdsd);
@@ -56,10 +56,11 @@ function show() {
    
     for (let index = 0; index < lcalstr.length; index++) {
         const value = lcalstr[index].text;
-        console.log(lcalstr[index].text);
+        // console.log(lcalstr[index].text);
         
         if (value !== null && value !== "") {
             const div = document.createElement("div");
+            div.classList.add("taskDiv");
             div.dataset.id = String(index);
             const li = document.createElement("li")
             const deletebtn = document.createElement("button")
@@ -75,9 +76,16 @@ function show() {
             div.appendChild(deletebtn)
             li.appendChild(div);
             ul.appendChild(li);
+
             
             deletebtn.addEventListener("click", deleteData);
             checkBox.addEventListener("click", check)
+
+
+            //animation
+            // lastLi = ul.lastElementChild;
+            // li.classList.add("fade-in");
+            // li.addEventListener("animationend", (event) => { event.target.classList.remove("fade-in") })
         }
     }
 }
@@ -86,26 +94,31 @@ function check(event){
     const i = parseInt(event.target.parentElement.dataset.id);
     const done = event.target;
     
+    
     if (done.checked) {
-        done.parentElement.style.backgroundColor = "green";
+        // done.parentElement.style.backgroundColor = "green";
+        done.parentElement.classList.add("checked");
         list[i].checked = true;
     }
     else {
-        done.parentElement.style.backgroundColor = "bisque";
+        // done.parentElement.style.backgroundColor = "bisque";
+        done.parentElement.classList.remove("checked")
         list[i].checked = false;
     }
-    // console.log(list[i].checked);
+    console.log(list[i].checked);
     
-    save();
-    show();
+    // save();
+    // show();
 }
 
 function deleteData(event) {
     
     const div = event.target.parentElement;
-    console.log(div.parentElement);
+    // console.log(div.parentElement);
     
     ul.removeChild(div.parentElement);
+    
+    // list
     // console.log(event.target.parentElement);
     show();
     // localStorage.removeItem(String(i));
