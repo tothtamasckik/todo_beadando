@@ -65,6 +65,11 @@ textarea{
     padding: 2px;
 }
 
+.taskDiv:hover{
+    cursor: pointer;
+    border: rgb(229, 255, 0), solid, 1px;
+}
+
 .checked{
     border: 1px solid rgb(9, 255, 0);
     color: rgb(9, 255, 0);
@@ -100,13 +105,23 @@ button:active{
     background-color: rgb(194, 128, 128);
 }
 
+.clicked{
+    background-color: rgba(255, 255, 255, 0.904);
+    color: black;
+}
 
-/* új design ^^ */
-/* Az eredeti CSS beállítások VV */
+.clickedDone{
+    background-color: rgb(9, 255, 0);
+    color: black;
+}
 
 li{
     list-style: none;
 }
+
+/* új design ^^ */
+/* Az eredeti CSS beállítások VV */
+
 
 /* .taskDiv{
     display: flex;
@@ -135,4 +150,14 @@ li{
 
 .fade-in{
     animation: appear 1s;
+}
+
+/* reszponzivitás */
+@media only screen and (max-width: 540px) {
+    textarea{
+        width: 300px;
+    }
+    #btn{
+        width: 300px;
+    }
 }

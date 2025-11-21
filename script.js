@@ -6,6 +6,44 @@ const ul = document.querySelector("ul");
 
 button.addEventListener("click", add);
 window.addEventListener("load", show);
+window.addEventListener("load", localToList)
+ul.addEventListener("click", clicked);
+
+
+function moveTask(event) {
+    // if (event.key != "ArrowDown") return;
+
+    // const a = list[x], b = list[y];
+
+    // for (let i = 0; i < list.length; i++) {
+        
+        
+    // }
+
+    console.log(event.target);
+    
+    
+
+    
+    
+}
+
+function clicked(event) {
+    const allTasks = document.getElementsByClassName("taskDiv");
+
+    
+    for (var i = 0; i < allTasks.length; i++) {
+        if (allTasks[i].classList.contains("clicked") && i != event.target.dataset.id) {
+            allTasks[i].classList.remove("clicked");
+        }
+    }
+    
+    
+    
+    event.target.classList.toggle("clicked");
+    event.target.addEventListener("keydown", moveTask);
+
+}
 
 
 
@@ -22,14 +60,12 @@ function add() {
     };
     
    
-    console.log(list);
+    // console.log(list);
     
-    if (localStorage.length > 0) {
-        list = JSON.parse(localStorage.getItem("tasks"))
-    }
+    
 
+    localToList();
     list.push(task)
-    
     
 
     // for (let index = 0; index < list.length; index++) {
@@ -40,6 +76,12 @@ function add() {
     textarea.value = "";
     save();    
     
+}
+
+function localToList() {
+    if (localStorage.length > 0) {
+        list = JSON.parse(localStorage.getItem("tasks"))
+    }
 }
 
 
@@ -116,19 +158,18 @@ function show() {
 function check(event){
     const i = parseInt(event.target.parentElement.dataset.id);
     const done = event.target;
-    
-    
     if (done.checked) {
         // done.parentElement.style.backgroundColor = "green";
+        
         done.parentElement.classList.add("checked");
         list[i].checked = true;
+        
     }
     else {
         // done.parentElement.style.backgroundColor = "bisque";
         done.parentElement.classList.remove("checked")
         list[i].checked = false;
     }
-    // console.log(list[i].checked);
     
     // save();
     // show();
@@ -140,6 +181,7 @@ function deleteData(event) {
     // console.log(div.parentElement);
     
     ul.removeChild(div.parentElement);
+    
     
     // list
     // console.log(event.target.parentElement);
