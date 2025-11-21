@@ -1,3 +1,5 @@
+/* load animation */
+
 @keyframes load {
     from {
         opacity: 0%;
@@ -8,6 +10,8 @@
         margin-top: 0px;
     }
 }
+
+/* the design */
 
 body{
     background-color: black;
@@ -119,40 +123,8 @@ li{
     list-style: none;
 }
 
-/* új design ^^ */
-/* Az eredeti CSS beállítások VV */
+/* responsivity */
 
-
-/* .taskDiv{
-    display: flex;
-    justify-content: space-between;
-    border: 5px solid black;
-    background-color: bisque;
-    margin: 18px;
-} */
-
-
-
-
-/* nem működő animáció (a végén ha nem működik töröljük!!) VV */
-
-
-@keyframes appear {
-    from {
-        opacity: 0%;
-        margin-top: 2%;
-    }
-    to {
-        opacity: 100%;
-        margin-top: 0%;
-    }
-}
-
-.fade-in{
-    animation: appear 1s;
-}
-
-/* reszponzivitás */
 @media only screen and (max-width: 540px) {
     textarea{
         width: 300px;

@@ -2,103 +2,73 @@ let list = [];
 const button = document.querySelector("#btn");
 const textarea = document.querySelector("#area");
 const ul = document.querySelector("ul");
-// let deletebtn = "";
 
 button.addEventListener("click", add);
-window.addEventListener("load", show);
-window.addEventListener("load", localToList)
+window.addEventListener("load", localToList);
 ul.addEventListener("click", clicked);
+window.addEventListener("keydown", removeClicked);
 
+function removeClicked(event) {
+    if (event.key != "Escape") return;
 
-function moveTask(event) {
-    // if (event.key != "ArrowDown") return;
-
-    // const a = list[x], b = list[y];
-
-    // for (let i = 0; i < list.length; i++) {
-        
-        
-    // }
-
-    console.log(event.target);
-    
-    
-
-    
-    
-}
-
-function clicked(event) {
     const allTasks = document.getElementsByClassName("taskDiv");
 
-    
+    for (var i = 0; i < allTasks.length; i++) {
+        allTasks[i].classList.remove("clicked");
+    }
+}
+
+
+function clicked(event) {
+    if (event.target == ul) return;
+
+    const allTasks = document.getElementsByClassName("taskDiv");
+
     for (var i = 0; i < allTasks.length; i++) {
         if (allTasks[i].classList.contains("clicked") && i != event.target.dataset.id) {
             allTasks[i].classList.remove("clicked");
         }
     }
     
-    
-    
     event.target.classList.toggle("clicked");
-    event.target.addEventListener("keydown", moveTask);
-
+    console.log(event.target);
+    
 }
 
 
-
-function add() {
+function add(event) {
     if (textarea.value === "") return;
-    // if (localStorage.length > 0) {
-    //     for (let index = 0; index < localStorage.length; index++) {
-    //         list[index] = localStorage.getItem(String(index))
-    //     }
-    // }
+
     let task = {
         text: textarea.value,
         checked: false
-    };
+    }
     
-   
-    // console.log(list);
-    
-    
-
     localToList();
-    list.push(task)
-    
-
-    // for (let index = 0; index < list.length; index++) {
-    //     localStorage.setItem(String(index), list[index])
-    //     console.log(localStorage.getItem(String(index), list[index]));
-    // }
+    list.push(task);
 
     textarea.value = "";
     save();    
     
 }
 
+
 function localToList() {
     if (localStorage.length > 0) {
-        list = JSON.parse(localStorage.getItem("tasks"))
+        list = JSON.parse(localStorage.getItem("tasks"));
     }
+
+    save();
 }
 
 
 function save() {
-    
-   
-   
     localStorage.setItem("tasks", JSON.stringify(list));
    
-        
     show();
     
-    
-    
-    // console.log(localStorage);
-    
 }
+
 
 function show() {
     ul.innerHTML = "";
@@ -106,88 +76,74 @@ function show() {
     
     let lcalstr = JSON.parse(localStorage.getItem("tasks"));
    
-    
-  
-    // localStorage.setItem("tasks", JSON.parse())
-    // console.log(dsjsdsd);
-    // console.log(lcalstr);
-    
-    
-    // console.log(dsjsdsd);
-    
-    // console.log(JSON.parse(dsjsdsd));
-   
-    for (let index = 0; index < lcalstr.length; index++) {
-        const value = lcalstr[index].text;
-        // console.log(value);
-        
-        // console.log(lcalstr[index].text);
+    for (let i = 0; i < lcalstr.length; i++) {
+        const value = lcalstr[i].text;
         
         if (value !== null && value !== "") {
             const div = document.createElement("div");
             div.classList.add("taskDiv");
-            div.dataset.id = String(index);
-            const li = document.createElement("li")
-            const deletebtn = document.createElement("button")
-            deletebtn.innerText = "Törlés"
+            div.dataset.id = String(i);
+            const li = document.createElement("li");
+            const deletebtn = document.createElement("button");
+            deletebtn.innerText = "Törlés";
             
-            const checkBox = document.createElement('input')
-            checkBox.type = "checkbox"
-            const p = document.createElement("p")
+            const checkBox = document.createElement('input');
+            checkBox.type = "checkbox";
+            checkBox.checked = lcalstr[i].checked;
+            const p = document.createElement("p");
             p.innerText = value;
           
-            div.appendChild(checkBox)
+            div.appendChild(checkBox);
             div.appendChild(p);
-            div.appendChild(deletebtn)
+            div.appendChild(deletebtn);
             li.appendChild(div);
             ul.appendChild(li);
 
-            
             deletebtn.addEventListener("click", deleteData);
-            checkBox.addEventListener("click", check)
+            checkBox.addEventListener("click", check);
 
-
-            //animation
-            // lastLi = ul.lastElementChild;
-            // li.classList.add("fade-in");
-            // li.addEventListener("animationend", (event) => { event.target.classList.remove("fade-in") })
+            if (lcalstr[i].checked == true) {
+                div.classList.add("checked");
+            }
         }
     }
 }
 
+
 function check(event){
+    let lcalstr = JSON.parse(localStorage.getItem("tasks"));
+
     const i = parseInt(event.target.parentElement.dataset.id);
     const done = event.target;
     if (done.checked) {
-        // done.parentElement.style.backgroundColor = "green";
         
         done.parentElement.classList.add("checked");
-        list[i].checked = true;
+        lcalstr[i].checked = true;
         
     }
     else {
-        // done.parentElement.style.backgroundColor = "bisque";
-        done.parentElement.classList.remove("checked")
-        list[i].checked = false;
+        done.parentElement.classList.remove("checked");
+        lcalstr[i].checked = false;
     }
     
-    // save();
-    // show();
+    localStorage.setItem("tasks", JSON.stringify(lcalstr));
 }
 
+
 function deleteData(event) {
-    
+    let lcalstr = JSON.parse(localStorage.getItem("tasks"));
     const div = event.target.parentElement;
-    // console.log(div.parentElement);
-    
+
+    for (let i = 0; i < lcalstr.length; i++) {
+        if (i == div.dataset.id) {
+            lcalstr.splice(i, 1)
+        }
+    }
+
     ul.removeChild(div.parentElement);
-    
-    
-    // list
-    // console.log(event.target.parentElement);
-    show();
-    // localStorage.removeItem(String(i));
-    // list.remove(i);
+    localStorage.setItem("tasks", JSON.stringify(lcalstr));
+  
+    localToList();
 }
 
 
