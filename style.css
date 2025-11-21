@@ -9,7 +9,7 @@
     }
 }
 
-/* body{
+body{
     background-color: black;
     color: white;
     animation: load 1s;
@@ -98,7 +98,7 @@ button:hover{
 
 button:active{
     background-color: rgb(194, 128, 128);
-} */
+}
 
 
 /* új design ^^ */
@@ -108,25 +108,31 @@ li{
     list-style: none;
 }
 
-.taskDiv{
+/* .taskDiv{
     display: flex;
     justify-content: space-between;
     border: 5px solid black;
     background-color: bisque;
     margin: 18px;
-}
+} */
 
 
 
 
 /* nem működő animáció (a végén ha nem működik töröljük!!) VV */
-/* @keyframes appear {
+
+
+@keyframes appear {
     from {
-    opacity: 0%;
-    margin-top: 2%;
-  }
-  to {
-    opacity: 100%;
-    margin-top: 0%;
-  }
-} */
+        opacity: 0%;
+        margin-top: 2%;
+    }
+    to {
+        opacity: 100%;
+        margin-top: 0%;
+    }
+}
+
+.fade-in{
+    animation: appear 1s;
+}

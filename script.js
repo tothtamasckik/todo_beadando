@@ -1,11 +1,11 @@
-const list = [];
+let list = [];
 const button = document.querySelector("#btn");
 const textarea = document.querySelector("#area");
 const ul = document.querySelector("ul");
 // let deletebtn = "";
 
 button.addEventListener("click", add);
-window.addEventListener("load", save);
+window.addEventListener("load", show);
 
 
 
@@ -16,10 +16,12 @@ function add() {
     //         list[index] = localStorage.getItem(String(index))
     //     }
     // }
-    const task = {
+    let task = {
         text: textarea.value,
         checked: false
     };
+    
+    
     list.push(task)
     
     
@@ -36,8 +38,13 @@ function add() {
 
 
 function save() {
+   
     localStorage.setItem("tasks", JSON.stringify(list));
+        
+        
     show();
+    
+    
     
     // console.log(localStorage);
     
@@ -45,7 +52,13 @@ function save() {
 
 function show() {
     ul.innerHTML = "";
-    const lcalstr = JSON.parse(localStorage.getItem("tasks"))
+    if (localStorage.length <= 0) return;
+    
+    let lcalstr = JSON.parse(localStorage.getItem("tasks"));
+   
+    
+  
+    // localStorage.setItem("tasks", JSON.parse())
     // console.log(dsjsdsd);
     // console.log(lcalstr);
     
@@ -56,6 +69,8 @@ function show() {
    
     for (let index = 0; index < lcalstr.length; index++) {
         const value = lcalstr[index].text;
+        // console.log(value);
+        
         // console.log(lcalstr[index].text);
         
         if (value !== null && value !== "") {
