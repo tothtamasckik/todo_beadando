@@ -21,7 +21,13 @@ function add() {
         checked: false
     };
     
+   
+    console.log(list);
     
+    if (localStorage.length > 0) {
+        list = JSON.parse(localStorage.getItem("tasks"))
+    }
+
     list.push(task)
     
     
@@ -38,9 +44,11 @@ function add() {
 
 
 function save() {
+    
+   
    
     localStorage.setItem("tasks", JSON.stringify(list));
-        
+   
         
     show();
     
@@ -120,7 +128,7 @@ function check(event){
         done.parentElement.classList.remove("checked")
         list[i].checked = false;
     }
-    console.log(list[i].checked);
+    // console.log(list[i].checked);
     
     // save();
     // show();
